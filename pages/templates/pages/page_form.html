@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Crear página{% endblock %}
+{% block content %}
+{% include 'pages/includes/pages_menu.html'%}
+<main>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <div>
+            <form id="pageForm" action="" method="post">{% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <br>
+                <input type="submit" value="Crear página" />
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+<script>
+document.getElementById('pageForm').addEventListener('submit', async function(e) {
+    e.preventDefault()
+    const form = this
+    const formData = new FormData(form)
+
+    const response = await fetch(window.location.href, {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (response.ok) {
+        alert('Página creada correctamente')
+        form.reset()
+    } else {
+        alert('Ocurrió un error al crear la página')
+    }
+});
+</script>
