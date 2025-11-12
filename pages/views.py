@@ -8,10 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
-class PageListView(ListView, LoginRequiredMixin):
+class PageListView(LoginRequiredMixin,ListView):
     model = Page
 
-class PageDetailView(DetailView, LoginRequiredMixin):
+class PageDetailView(LoginRequiredMixin,DetailView):
     model = Page
     pk_url_kwarg = 'page_id'
 
@@ -19,7 +19,7 @@ class PageDetailView(DetailView, LoginRequiredMixin):
 
     slug_field = 'slug'
 
-class PageCreateView(CreateView, LoginRequiredMixin):
+class PageCreateView(LoginRequiredMixin,CreateView):
     model = Page
     fields = ["title", "content", "order"]
     success_url = reverse_lazy("pages:pages")
